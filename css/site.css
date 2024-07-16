@@ -107,3 +107,8 @@ footer i {
 footer i:hover {
     color: var(--cf-theme-300);
 }
+
+#alertBox {
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}

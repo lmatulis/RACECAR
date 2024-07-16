@@ -76,11 +76,12 @@
 
     <main>
         <div class="container mt-5">
-            <h1>APP UI Here</h1>
+            <h1>Palindrome Checker</h1>
+            <p class="mt-3">Enter a message</p>
             <input id="message" placeholder="Message" class="form-control" type="text">
-            <button id="btn-submit" type="button" class="btn btn-primary mt-2">Display Message</button>
-            <div class="alert alert-danger mt-5 p4 d-none" role="alert" id="alertBox">
-
+            <button id="btnSubmit" type="button" class="btn btn-primary mt-2">Display Message</button>
+            <div class="alert mt-5 p4" role="alert" id="alertBox">
+                
             </div>
         </div>
     </main>
@@ -115,7 +116,7 @@
     <script src="/js/site.js"></script>
 
     <script>
-        document.getElementById("btn-submit").addEventListener("click", getValues2);
+        document.getElementById("btnSubmit").addEventListener("click", getValues);
     </script>
 
 </body>
