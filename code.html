@@ -65,7 +65,7 @@
                             <a class="nav-link" href="https://github.com/lmatulis/RACECAR">Repo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="https://lmatulis-portfolio.netlify.app/">About</a>
                         </li>
                     </ul>
                 </div>
@@ -81,22 +81,121 @@
             <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-javascript">
-                        //Get values from the screen and display
-                        function getValues2() {
-                        let message = document.getElementById("message").value
-                        let alertbox = document.getElementById("alertBox")
-                        
-                        alertbox.innerText = message
-                        }
-                        
-                        //document.getElementById("btn-submit").addEventListener("click", getValues2);
+//Get values and elements from input
+function getValues() {
+    let inputMessage = document.getElementById("message").value;
+    let alertBox = document.getElementById("alertBox");
+
+    //reset alertbox
+    alertBox.classList.remove("alert-danger");
+    alertBox.classList.remove("alert-success");
+    alertBox.style.opacity = 0;
+
+    //get a reversed copy of the message thats been normalized
+    let reversedMessage = reverse(inputMessage);
+
+    //check if its a palindrome
+    let isPalindrome = checkForPalindrome(inputMessage);
+
+    //display the results
+    alertBox.innerHTML = displayResults(isPalindrome, reversedMessage);
+}
+
+//checks if the input message is a palindrome by returning a boolean value
+function checkForPalindrome(inputMessage) {
+    //innocent until proven guilty
+    let isPalindrome = true;
+    //setting a range of characters to replace
+    let regex = /\W|_/g
+    //setting a variable that has been normalized
+    let normalizedMessage = inputMessage.replace(regex, "").toLowerCase();
+
+    //loop through the normalized message
+    for(let i = 0; i &lt; normalizedMessage.length; i++) {
+
+        fromLeft = normalizedMessage[i];
+        fromRight = normalizedMessage[normalizedMessage.length-i-1]
+
+        if(fromLeft != fromRight) {
+            isPalindrome = false;
+        }
+
+    }
+
+    return isPalindrome;
+}
+
+//displays results based on if it is a palindrome or not
+function displayResults(isPalindrome, reversedMessage) {
+    let message = "";
+    let alertElement = document.getElementById("alertBox");
+    alertElement.style.opacity = 1;
+    
+    if(isPalindrome != true) {
+        alertElement.classList.add("alert-danger")
+        message = `<xmp><div><h4 class="border-bottom border-secondary">Sorry! You did not enter a Palindrome.</h4><p>Your phrase reversed is: ${reversedMessage}</p></div></xmp>`;
+    } else {
+        alertElement.classList.add("alert-success");
+        message = `<xmp><div><h4 class="border-bottom border-secondary">Success! You entered a Palindrome!</h4><p>Your phrase reversed is: ${reversedMessage}</p></div></xmp>`
+    }
+
+    return message;
+}
+
+//normalizes the message and reverses it for output
+function reverse(inputMessage) {
+
+    let reversedMessage = "";
+    let regex = /\W|_/g
+    let normalizedMessage = inputMessage.replace(regex, "").toLowerCase();
+
+    for(let i = normalizedMessage.length-1; i >= 0; i--) {
+        reversedMessage += normalizedMessage[i];
+    }
+
+    return reversedMessage;
+}
                     </code>
                 </pre>
             </div>
             <div class="col-12 col-lg-4">
-                <p>The code is structured in one function</p>
-                <h5>getValues2</h5>
-                <p>Displays the user message</p>
+                <h3>Overview</h3>
+                <p>
+                    This Javascript is designed to take a user input message, check if it is a palindrome, and display the
+                    results accordingly.
+                    It normalizes the input by removing non-alphanumeric characters and converting to lowercase before
+                    performing the
+                    palindrome check and displaying the reversed message. Here is a breakdown of each function.
+                </p>
+                <h5>getValues()</h5>
+                <p>
+                    Retrieves the value from an input element with the ID message. 
+                    Resets the alertBox element by removing the alert-danger and alert-success classes and setting its opacity to 0. 
+                    Calls the reverse function to get a reversed and normalized version of the input message. 
+                    Calls the checkForPalindrome function to determine if the input message is a palindrome. 
+                    Displays the results by setting the inner HTML of alertBox to the output of displayResults. 
+                </p>
+                <h5>checkForPalindrome(inputMessage)</h5>
+                <p>
+                    Normalizes the input message by removing all non-alphanumeric characters (using a regex) and converting it to lowercase. 
+                    Checks if the normalized message is a palindrome by comparing characters from the start and end of the string moving
+                    towards the center. 
+                    Returns true if the message is a palindrome and false otherwise.
+                </p>
+                <h5>displayResults(isPalindrome, reversedMessage)</h5>
+                <p>
+                    Takes a boolean value (isPalindrome) and a reversed message (reversedMessage). 
+                    Displays an appropriate message based on whether the input was a palindrome or not. 
+                    Adds the alert-danger class to alertBox if the input is not a palindrome and alert-success if it is. 
+                    Sets the inner HTML of alertBox to show a message indicating success or failure and the reversed version of the input
+                    message.
+                </p>
+                <h5>reverse(inputMessage)</h5>
+                <p>
+                    Normalizes the input message by removing non-alphanumeric characters and converting it to lowercase. 
+                    Reverses the normalized message. 
+                    Returns the reversed message.
+                </p>
             </div>
         </div>
     </main>
@@ -127,16 +226,16 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        </script>
 
     <!-- Prism JS -->
-     <script src="/js/prism.js"></script>
+    <script src="/js/prism.js"></script>
     <script>Prism.plugins.NormalizeWhitespace.setDefualts({
-        'remove-trailing': true,
-        'remove-indent': true,
-        'left-trim': true,
-        'right-trim': true
-    })</script>
+            'remove-trailing': true,
+            'remove-indent': true,
+            'left-trim': true,
+            'right-trim': true
+        })</script>
 </body>
 
 </html>
